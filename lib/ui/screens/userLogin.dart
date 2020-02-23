@@ -94,14 +94,17 @@ class _RegisterFormState extends State<RegisterForm> {
     } else {
       form.save();
       try {
+        _showDialog(context);
         bool test =   await  Provider.of<UserVM>(context, listen: false).authenticateUser(email: email,
             password: password);
         if(test){
+          Navigator.pop(context);
           _autoValidate = false;
           _reset(form);
           Navigator.pushNamed(context, UIData.fundingRoute);
         }
         else {
+          Navigator.pop(context);
           showInSnackBar('SignIn Unsuccessful');
         }
       }
@@ -175,6 +178,25 @@ class _RegisterFormState extends State<RegisterForm> {
           )
         ],mainAxisAlignment: MainAxisAlignment.center,
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: Text("Signing In"),
+          content: Column(
+              children:[
+                SizedBox(height: 20.0),
+                CupertinoActivityIndicator()
+              ]),
+        );
+      },
     );
   }
 

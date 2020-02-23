@@ -32,7 +32,7 @@ class Cards extends StatefulWidget {
     var user = Provider.of<UserVM>(context, listen: false).user;
    return Scaffold(
    appBar: AppBar(leading: GestureDetector(child:Text('    Back',style: TextStyle(color: Colors.black,fontSize: 11)),onTap: ()=>Navigator.pop(context)),actions: <Widget>[
-     GestureDetector(child:CircleAvatar(backgroundImage: NetworkImage(user.avatar),maxRadius: 25),onTap: ()=> _showDialog(context))
+     GestureDetector(child:CircleAvatar(backgroundImage: user==null?AssetImage("assets/images/avatar.png"):NetworkImage(user.avatar),maxRadius: 25),onTap: ()=> _showDialog(context))
    ],elevation: 0,backgroundColor: Colors.transparent,title: Text('Your New Card',style: TextStyle(color: Colors.black,fontSize: 27)),centerTitle: true),
      body: SafeArea(child:ConstrainedBox(
              constraints: BoxConstraints(

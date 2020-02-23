@@ -24,10 +24,18 @@ class _Update extends State<Update>{
     File image = await ImagePicker.pickImage(source: ImageSource.gallery);
     bool test;
     try {
-      showInSnackBar("Updating ...");
+      _showDialog(context);
       bool test = await Provider.of<UserVM>(context, listen: false)
           .updateAvatar(avatar: image.path);
-      test? Navigator.pushNamed(context, UIData.fundingRoute):showInSnackBar("Update Unsuccessful");
+      if(test){
+        Navigator.pop(context);
+        Navigator.pushNamed(context, UIData.fundingRoute);
+      }
+      else{
+        Navigator.pop(context);
+        showInSnackBar("Update Unsuccessful");
+      }
+
     }
     catch(e){
       showInSnackBar(e.toString());
@@ -83,7 +91,24 @@ class _Update extends State<Update>{
   }
 
 
-
+  void _showDialog(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: Text("Updating Avatar"),
+          content: Column(
+              children:[
+                SizedBox(height: 20.0),
+                CupertinoActivityIndicator()
+              ]),
+        );
+      },
+    );
+  }
 
 }
 

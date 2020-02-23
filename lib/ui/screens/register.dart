@@ -105,18 +105,20 @@ class _RegisterFormState extends State<RegisterForm> {
     } else {
       form.save();
       try {
+        _showDialog(context);
         bool test =   await  Provider.of<UserVM>(context, listen: false).registerUser(email: email,
             password: password,
             firstName: firstName,
             lastName: lastName,
             passwordConfirmation: password);
         if(test){
-         // showInSnackBar('Registeration Complete');
+         Navigator.pop(context);
           _autoValidate = false;
           _reset(form);
           Navigator.pushNamed(context, UIData.authRoute);
         }
         else {
+          Navigator.pop(context);
           showInSnackBar('Registeration Unsuccessful');
         }
       }
@@ -240,6 +242,25 @@ class _RegisterFormState extends State<RegisterForm> {
           )
         ],mainAxisAlignment: MainAxisAlignment.center,
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: Text("Creating Account"),
+          content: Column(
+              children:[
+                SizedBox(height: 20.0),
+                CupertinoActivityIndicator()
+              ]),
+        );
+      },
     );
   }
 

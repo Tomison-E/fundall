@@ -25,7 +25,7 @@ class Funding extends StatelessWidget{
         children: <Widget>[
           IconButton(icon:Icon(Icons.forward,color: Colors.white,size: 30.0),onPressed: ()=>Navigator.pushNamed(context, UIData.walletRoute),),
       Text("Fundall e-Wallet",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 27.0)),
-      GestureDetector(child:CircleAvatar(backgroundImage: NetworkImage(user.avatar),maxRadius: 25),onTap: ()=>Navigator.pop(context))
+      GestureDetector(child:CircleAvatar(backgroundImage: user==null?AssetImage("assets/images/avatar.png"):NetworkImage(user.avatar),maxRadius: 25),onTap: ()=>Navigator.pop(context))
         ],mainAxisAlignment: MainAxisAlignment.spaceAround,
       ),
         SizedBox(height: 20.0),
