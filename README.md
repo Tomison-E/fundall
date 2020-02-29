@@ -1,6 +1,7 @@
 # fundall
 
 A new Flutter project.
+![video](IMG_7154.GIF)
 
 ## Getting Started
 
